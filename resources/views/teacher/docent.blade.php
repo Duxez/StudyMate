@@ -23,13 +23,14 @@
                 <td>{{$teacher->phone}}</td>
                 <td><a href="/docenten/{{$teacher->id}}/edit">Bewerk</a></td>
                 <td>
-                    <a class="nav-link" href="/docenten/{{ $teacher->id }}" onclick="event.preventDefault(); document.getElementById('delete').submit();">X</a>
-                    <form id="delete" action="/docenten/{{ $teacher->id }}" style="display: none;">
-                        @method('delete')
-                    </form>
+
                 </td>
 
-
+                <form id="delete" action="{{ url('docenten', $teacher->id) }}" style="display: none;">
+                    @csrf
+                    @method("delete")
+                    <button type="submit">Delete</button>
+                </form>
 
 
             </tr>
