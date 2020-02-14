@@ -23,14 +23,9 @@
                 <td>{{$teacher->phone}}</td>
                 <td><a href="/docenten/{{$teacher->id}}/edit">Bewerk</a></td>
                 <td>
-
+{{--                    TODO: FIX THIS WITH RESOURCE CONTROLLER--}}
+                    <a href="/docenten/{{$teacher->id}}/verwijder">X</a>
                 </td>
-
-                <form id="delete" action="{{ url('docenten', $teacher->id) }}" style="display: none;">
-                    @csrf
-                    @method("delete")
-                    <button type="submit">Delete</button>
-                </form>
 
 
             </tr>
@@ -38,6 +33,6 @@
         </tbody>
     </table>
 
-    <a href="/docent/create" class="btn btn-primary btn-lg active">Docent aanmaken</a>
+    <a href="/docenten/create" class="btn btn-primary btn-lg active">Docent aanmaken</a>
 
 @endsection

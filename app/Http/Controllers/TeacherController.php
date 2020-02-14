@@ -42,7 +42,7 @@ class TeacherController extends Controller
         $teacher->phone = $request->get('number');
 
         if ($teacher->save()) {
-            return redirect('/docent');
+            return redirect('/docenten');
         }
 
         //TODO: CREATE ERROR LABEN IN VIEW
@@ -93,8 +93,7 @@ class TeacherController extends Controller
      */
     public function destroy(teacher $teacher)
     {
-        echo 'hello world';
-//       $teacher->delete();
-//       return back();
+       $teacher->delete();
+       return back();
     }
 }

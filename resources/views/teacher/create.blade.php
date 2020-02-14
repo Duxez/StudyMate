@@ -5,7 +5,7 @@
 
     <h1>Docent aanmaken</h1>
 
-    <form action="/docent" method="post">
+    <form action="/docenten" method="post">
         @csrf
         <div class="form-group">
             <label>Docent naam</label>
