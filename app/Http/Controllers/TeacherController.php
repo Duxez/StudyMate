@@ -70,7 +70,7 @@ class TeacherController extends Controller
      */
     public function edit(teacher $teacher)
     {
-        //
+        return view('teacher.edit', compact('teacher'));
     }
 
     /**
