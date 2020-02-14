@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\teacher;
+use App\Teacher;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -45,6 +45,7 @@ class TeacherController extends Controller
             return redirect('/docent');
         }
 
+        //TODO: CREATE ERROR LABEN IN VIEW
         $request->session()->flash('error', 'Kon docent niet aanmaken');
         return back();
     }
@@ -53,11 +54,12 @@ class TeacherController extends Controller
      * Display the specified resource.
      *
      * @param  \App\teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(teacher $teacher)
     {
-        //
+        $data = Teacher::find($teacher);
+        return view('teacher.show', compact('data'));
     }
 
     /**
@@ -87,10 +89,12 @@ class TeacherController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(teacher $teacher)
     {
-        //
+        echo 'hello world';
+//       $teacher->delete();
+//       return back();
     }
 }

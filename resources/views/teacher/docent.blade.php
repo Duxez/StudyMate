@@ -17,12 +17,21 @@
         <tbody>
         @foreach($data as $teacher)
             <tr>
-                <th scope="row"><a href="">-</a></th>
+                <th scope="row"><a href="/docenten/{{$teacher->id}}">-</a></th>
                 <td>{{$teacher->name}}</td>
                 <td>{{$teacher->email}}</td>
                 <td>{{$teacher->phone}}</td>
-                <td><a href="">Bewerk</a></td>
-                <td><a href="">X</a></td>
+                <td><a href="/docenten/{{$teacher->id}}/edit">Bewerk</a></td>
+                <td>
+                    <a class="nav-link" href="/docenten/{{ $teacher->id }}" onclick="event.preventDefault(); document.getElementById('delete').submit();">X</a>
+                    <form id="delete" action="/docenten/{{ $teacher->id }}" style="display: none;">
+                        @method('delete')
+                    </form>
+                </td>
+
+
+
+
             </tr>
         @endforeach
         </tbody>

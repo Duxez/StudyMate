@@ -27,9 +27,9 @@
     <h2>StudyMate</h2>
     <a href="#about">Dashboard</a>
     @auth
-        <a href="">Cijfers</a>
-        <a href="">Vakken</a>
-        <a href="">Docenten</a>
+        <a href="/cijfers">Cijfers</a>
+        <a href="/vakken">Vakken</a>
+        <a href="/docenten">Docenten</a>
     @endauth
 
     @auth
