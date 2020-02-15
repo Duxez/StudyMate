@@ -15,7 +15,7 @@ class DeadlineManager
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->hasRole("deadline manager") == 1) {
+        if(auth()->user()->hasRole("deadline manager")) {
             return $next($request);
         }
 

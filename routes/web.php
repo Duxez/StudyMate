@@ -26,6 +26,8 @@ Route::get('/admin', function() {
     return view('admin');
 })->middleware('admin', 'auth');
 
-Route::get('/deadline', function () {
-    return view('deadline');
+Route::get('/manager', function() {
+    return view('deadline.show');
 })->middleware('deadline', 'auth');
+
+Route::resource('/deadline', 'DeadlineController')->middleware('checkRole:deadline manager');
