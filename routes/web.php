@@ -25,3 +25,7 @@ Route::resource('/docenten', 'TeacherController')->middleware('checkRole:admin')
 Route::get('/admin', function() {
     return view('admin');
 })->middleware('admin', 'auth');
+
+Route::get('/deadline', function () {
+    return view('deadline');
+})->middleware('deadline', 'auth');
