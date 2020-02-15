@@ -21,13 +21,13 @@
                 <td>{{$course->name}}</td>
                 <td>{{$course->period}}</td>
                 <td>{{$course->teacher_name}}</td>
-                <td><a href="">Bewerk</a></td>
+                <td><a href="/vakken/{{$course->id}}/edit">Bewerk</a></td>
                 <td>
-{{--                    <a href="/docenten/{{$teacher->id}}" onclick="event.preventDefault(); document.getElementById('delete{{$teacher->id}}').submit()">X</a>--}}
-{{--                    <form action="/docenten/{{$teacher->id}}" method="post" id="delete{{$teacher->id}}">--}}
-{{--                        @csrf--}}
-{{--                        @method('DELETE')--}}
-{{--                    </form>--}}
+                    <a href="/vakken/{{$course->id}}" onclick="event.preventDefault(); document.getElementById('delete{{$course->id}}').submit()">X</a>
+                    <form action="/vakken/{{$course->id}}" method="post" id="delete{{$course->id}}">
+                        @csrf
+                        @method('DELETE')
+                    </form>
                 </td>
 
 

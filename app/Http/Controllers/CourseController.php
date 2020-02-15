@@ -93,11 +93,13 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Course  $course
-     * @return \Illuminate\Http\Response
+     * @param \App\Course $course
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return back();
     }
 }
