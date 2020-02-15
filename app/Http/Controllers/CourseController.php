@@ -16,10 +16,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = DB::table('courses')
-            ->leftJoin('teachers', 'courses.coordinator', '=', 'teachers.id')
-            ->select('teachers.name as teacher_name', 'courses.*')
-            ->get();
+        $courses = Course::getCoursesWithTeacher();
         return view('course.index', compact('courses'));
     }
 
@@ -60,22 +57,23 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Course  $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Course $course)
     {
-        //
+        return view("course.show", compact('course'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Course  $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Course $course)
     {
-        //
+        $teachers = Teacher::all();
+        return view('course.edit', compact('course', 'teachers'));
     }
 
     /**
@@ -83,11 +81,15 @@ class CourseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Course  $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $course->name = $request->get('name');
+        $course->period = $request->get('period');
+        $course->coordinator = $request->get('teacher');
+        $course->save();
+        return redirect("/vakken/".$course->id);
     }
 
     /**
