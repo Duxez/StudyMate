@@ -78,11 +78,16 @@ class TeacherController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, teacher $teacher)
     {
-        //
+        //TODO: VALIDATION ON FORMS IN THE BACKEND
+        $teacher->name = $request->get('name');
+        $teacher->email = $request->get('email');
+        $teacher->phone = $request->get('phone');
+        $teacher->save();
+        return redirect("/docenten/".$teacher->id);
     }
 
     /**

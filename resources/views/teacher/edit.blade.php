@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label>Docent Telefoonnummer</label>
-            <input type="text" class="form-control" placeholder="Telefoonnummer" name="number" {{ $teacher->phone }} required>
+            <input type="text" class="form-control" placeholder="Telefoonnummer" name="phone" value="{{ $teacher->phone }} "required>
         </div>
 
         <button type="submit" class="btn btn-primary">Bewerken</button>

@@ -24,7 +24,12 @@
                 <td><a href="/docenten/{{$teacher->id}}/edit">Bewerk</a></td>
                 <td>
 {{--                    TODO: FIX THIS WITH RESOURCE CONTROLLER--}}
-                    <a href="/docenten/{{$teacher->id}}/verwijder">X</a>
+
+                    <a href="/docenten/{{$teacher->id}}" onclick="event.preventDefault(); document.getElementById('delete{{$teacher->id}}').submit()">X</a>
+                    <form action="/docenten/{{$teacher->id}}" method="post" id="delete{{$teacher->id}}">
+                        @csrf
+                        @method('DELETE')
+                    </form>
                 </td>
 
 
