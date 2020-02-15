@@ -66,7 +66,7 @@ class TeacherController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(teacher $teacher)
     {
