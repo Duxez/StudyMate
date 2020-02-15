@@ -53,10 +53,10 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\teacher  $teacher
+     * @param  \App\Teacher  $teacher
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(teacher $teacher)
+    public function show(Teacher $teacher)
     {
         $data = Teacher::find($teacher);
         return view('teacher.show', compact('data'));
@@ -68,7 +68,7 @@ class TeacherController extends Controller
      * @param  \App\teacher  $teacher
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(teacher $teacher)
+    public function edit(Teacher $teacher)
     {
         return view('teacher.edit', compact('teacher'));
     }
@@ -80,7 +80,7 @@ class TeacherController extends Controller
      * @param  \App\teacher  $teacher
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, teacher $teacher)
+    public function update(Request $request, Teacher $teacher)
     {
         //TODO: VALIDATION ON FORMS IN THE BACKEND
         $teacher->name = $request->get('name');
@@ -96,7 +96,7 @@ class TeacherController extends Controller
      * @param  \App\teacher  $teacher
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(teacher $teacher)
+    public function destroy(Teacher $teacher)
     {
        $teacher->delete();
        return back();
