@@ -45,9 +45,12 @@ class TeacherController extends Controller
 
         $courses = $request->get('courses');
         if ($teacher->save()) {
-            foreach ($courses as $course) {
-                $teacher->courses()->attach($course);
+            if ($courses >= 1) {
+                foreach ($courses as $course) {
+                    $teacher->courses()->attach($course);
+                }
             }
+
             return redirect('/docenten');
         }
 
@@ -76,7 +79,8 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        return view('teacher.edit', compact('teacher'));
+        $courses = Course::all();
+        return view('teacher.edit', compact('teacher', 'courses'));
     }
 
     /**
@@ -93,14 +97,22 @@ class TeacherController extends Controller
         $teacher->email = $request->get('email');
         $teacher->phone = $request->get('phone');
         $teacher->save();
+
+        $courses = $request->get('courses');
+        foreach($courses as $course) {
+            //TODO: CHECK IF IT IS ALREADY IN PIVOT TABLE
+            $teacher->courses()->attach($course);
+        }
+
         return redirect("/docenten/".$teacher->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\teacher  $teacher
+     * @param \App\teacher $teacher
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Teacher $teacher)
     {

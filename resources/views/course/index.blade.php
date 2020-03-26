@@ -17,7 +17,7 @@
         <tbody>
         @foreach($courses as $course)
             <tr>
-                <th scope="row"><a href="">-</a></th>
+                <th scope="row"><a href="/vakken/{{$course->id}}">-</a></th>
                 <td>{{$course->name}}</td>
                 <td>{{$course->period}}</td>
                 <td>{{$course->teacher_name}}</td>
