@@ -22,6 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/docenten', 'TeacherController')->middleware('checkRole:admin');
 Route::resource('/vakken', 'CourseController')->middleware('checkRole:admin');
 
+Route::get('/vakken/test/{id}', 'TestController@create')->middleware('checkRole:admin');
+Route::post('/vakken/test/{id}', 'TestController@store')->middleware('checkRole:admin');
+
 //admin needs also auth middleware because if user isn't set auth()->user() is null
 Route::get('/admin', function() {
     return view('admin');

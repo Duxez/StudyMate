@@ -9,4 +9,6 @@
     <h3>{{$course->period}}</h3>
 {{--TODO: NOT SURE ABOUT THIS--}}
     <h3>{{ $course->teacher()[0]->name }}</h3>
+
+<a href="/vakken/test/{{ $course->id }}" class="btn btn-primary">toets maken</a>
 @endsection

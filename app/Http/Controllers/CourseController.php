@@ -104,4 +104,5 @@ class CourseController extends Controller
         $course->delete();
         return back();
     }
+
 }
