@@ -26,3 +26,5 @@ Route::resource('/vakken', 'CourseController')->middleware('checkRole:admin');
 Route::get('/admin', function() {
     return view('admin');
 })->middleware('admin', 'auth');
+
+Route::get('/docenten', 'TeacherController@index');
