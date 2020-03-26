@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\Teacher;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teacher.create');
+        $courses = Course::all();
+        return view('teacher.create', compact('courses'));
     }
 
     /**
@@ -41,7 +43,11 @@ class TeacherController extends Controller
         $teacher->email = $request->get('email');
         $teacher->phone = $request->get('number');
 
+        $courses = $request->get('courses');
         if ($teacher->save()) {
+            foreach ($courses as $course) {
+                $teacher->courses()->attach($course);
+            }
             return redirect('/docenten');
         }
 
@@ -58,7 +64,7 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        $data = Teacher::find($teacher);
+        $data = Teacher::findOrFail($teacher);
         return view('teacher.show', compact('data'));
     }
 
