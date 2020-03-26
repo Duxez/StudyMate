@@ -8,15 +8,13 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    public function create(Course $id)
+    public function create(Course $course)
     {
-        $course = $id;
         return view('tests.create', compact('course'));
     }
 
-    public function store(Request $request, Course $id)
+    public function store(Request $request, Course $course)
     {
-        $course = $id;
         $test = new Test();
         $test->course_id = $course->id;
         $test->date = $request->get('date');
