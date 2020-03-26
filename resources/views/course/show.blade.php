@@ -10,5 +10,12 @@
 {{--TODO: NOT SURE ABOUT THIS--}}
     <h3>{{ $course->teacher()[0]->name }}</h3>
 
+
+
+    <h1>Toetsen:</h1>
+    @foreach($course->tests as $test)
+        {{ $test->date }} <br>
+    @endforeach
+
 <a href="/vakken/test/{{ $course->id }}" class="btn btn-primary">toets maken</a>
 @endsection
