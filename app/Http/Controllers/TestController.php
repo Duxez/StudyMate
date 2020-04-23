@@ -38,18 +38,22 @@ class TestController extends Controller
     {
         $file = $request->file('bestand');
 
-        Storage::disk('local')->putFileAs(
-            'files/assesments',
-            $file,
-            $file->getClientOriginalName()
-        );
 
-        $test = Test::find($request->id);
-        $test->filename = $file->getClientOriginalName();
-        $test->save();
+        if ($file->getClientOriginalExtension() == 'zip') {
+            Storage::disk('local')->putFileAs(
+                'files/assesments',
+                $file,
+                $file->getClientOriginalName()
+            );
 
-        return back();
+            $test = Test::find($request->id);
+            $test->filename = $file->getClientOriginalName();
+            $test->save();
 
+            return back();
+        }
+
+        return back()->withErrors(['fileError' => 'Upload alleen maar een .zip bestand!']);
     }
 
 }

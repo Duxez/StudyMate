@@ -10,6 +10,11 @@
 {{--TODO: NOT SURE ABOUT THIS--}}
     <h3>{{ $course->teacher()[0]->name }}</h3>
 
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            {{ $errors->first() }}
+        </div>
+    @endif
 
 
     <h1>Toetsen:</h1>
