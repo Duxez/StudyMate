@@ -44,6 +44,12 @@ class TestController extends Controller
             $file->getClientOriginalName()
         );
 
+        $test = Test::find($request->id);
+        $test->filename = $file->getClientOriginalName();
+        $test->save();
+
+        return back();
+
     }
 
 }

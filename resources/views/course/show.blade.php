@@ -26,19 +26,20 @@
     <tbody>
 
     @foreach($course->tests as $test)
-        {{ $test }}
         <tr>
-            <th scope="row">1</th>
+            <th scope="row">#</th>
             <td>{{$test->date}}</td>
             <td>@if($test->assesment) Ja @else Nee @endif</td>
             <td>
-            @if($test->assesment)
+            @if($test->assesment && $test->filename == null)
                     <form action="/upload/assesment/{{$course->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{$test->id}}">
                         <input type="file" name="bestand">
                         <button type="submit">submit</button>
                     </form>
+             @else
+                {{ $test->filename }}
             @endif
             </td>
         </tr>
