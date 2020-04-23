@@ -16,6 +16,8 @@ class CreateTestsTable extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->boolean('assesment');
+            $table->string('filename')->nullable();
             $table->date('date');
             $table->timestamps();
 

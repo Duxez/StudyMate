@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
@@ -18,11 +19,31 @@ class TestController extends Controller
         $test = new Test();
         $test->course_id = $course->id;
         $test->date = $request->get('date');
+        $test->filename = null;
+
+        if ($request->get('assesment') == 'on') {
+            $test->assesment = true;
+        } else {
+            $test->assesment = false;
+        }
 
         if($test->save()) {
             return redirect('/vakken/'. $course->id);
         }
 
-        dd($test);
     }
+
+
+    public function uploadAssesment(Request $request, Course $course)
+    {
+        $file = $request->file('bestand');
+
+        Storage::disk('local')->putFileAs(
+            'files/assesments',
+            $file,
+            $file->getClientOriginalName()
+        );
+
+    }
+
 }

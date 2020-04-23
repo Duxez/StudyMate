@@ -25,6 +25,7 @@ Route::resource('/vakken', 'CourseController')->middleware('checkRole:admin');
 Route::get('/vakken/test/{course}', 'TestController@create')->middleware('checkRole:admin');
 Route::post('/vakken/test/{course}', 'TestController@store')->middleware('checkRole:admin');
 
+Route::post('/upload/assesment/{course}', 'TestController@uploadAssesment')->middleware('checkRole:admin');
 //admin needs also auth middleware because if user isn't set auth()->user() is null
 Route::get('/admin', function() {
     return view('admin');
