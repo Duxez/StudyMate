@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'DashboardController@index')->name('home');
 
 Route::resource('/docenten', 'TeacherController')->middleware('checkRole:admin');
 Route::resource('/vakken', 'CourseController')->middleware('checkRole:admin');

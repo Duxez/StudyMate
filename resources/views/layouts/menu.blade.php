@@ -1,7 +1,7 @@
 
 <div class="sidenav">
     <h2>StudyMate</h2>
-    <a href="#about">Dashboard</a>
+    <a href="/dashboard">Dashboard</a>
     @auth
         <a href="/cijfers">Cijfers</a>
         <a href="/vakken">Vakken</a>
