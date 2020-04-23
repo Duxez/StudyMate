@@ -24,7 +24,7 @@
             <label for="exampleFormControlSelect2">Geeft les in</label>
             <select multiple class="form-control" name="courses[]">
                 @foreach($courses as $course)
-                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
             </select>
         </div>

@@ -27,8 +27,8 @@ class TestController extends Controller
             $test->assesment = false;
         }
 
-        if($test->save()) {
-            return redirect('/vakken/'. $course->id);
+        if ($test->save()) {
+            return redirect('/vakken/' . $course->id);
         }
 
     }
@@ -36,7 +36,9 @@ class TestController extends Controller
 
     public function uploadAssesment(Request $request, Course $course)
     {
-        $file = $request->file('bestand');
+        if (!$file = $request->file('bestand')) {
+            return back()->withErrors(['fileUploadError' => 'Selecteer een .zip file']);
+        }
 
 
         if ($file->getClientOriginalExtension() == 'zip') {
@@ -54,6 +56,21 @@ class TestController extends Controller
         }
 
         return back()->withErrors(['fileError' => 'Upload alleen maar een .zip bestand!']);
+    }
+
+    public function gradeAssesment(Request $request, Course $course)
+    {
+        if (!$grade = $request->get('grade')) {
+            return back()->withErrors(['gradeError' => 'Alleen een cijfer tussen de 1 en de 10']);
+        }
+
+        $test = Test::find($request->get('id'));
+
+        $test->grade = $grade;
+
+        $test->save();
+
+        return back()->with('success', 'Je cijfer is geupdate!');
     }
 
 }

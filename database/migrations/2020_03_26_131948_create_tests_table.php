@@ -19,6 +19,7 @@ class CreateTestsTable extends Migration
             $table->boolean('assesment');
             $table->string('filename')->nullable();
             $table->date('date');
+            $table->float('grade')->nullable();
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
