@@ -40,7 +40,6 @@ class TestController extends Controller
             return back()->withErrors(['fileUploadError' => 'Selecteer een .zip file']);
         }
 
-
         if ($file->getClientOriginalExtension() == 'zip') {
             Storage::disk('local')->putFileAs(
                 'files/assesments',
