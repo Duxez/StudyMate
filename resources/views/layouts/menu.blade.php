@@ -3,9 +3,13 @@
     <h2>StudyMate</h2>
     <a href="/dashboard">Dashboard</a>
     @auth
-        <a href="/cijfers">Cijfers</a>
-        <a href="/vakken">Vakken</a>
-        <a href="/docenten">Docenten</a>
+        @if(auth()->user()->hasRole('admin'))
+            <a href="/cijfers">Cijfers</a>
+            <a href="/vakken">Vakken</a>
+            <a href="/docenten">Docenten</a>
+        @elseif(auth()->user()->hasRole('deadline manager'))
+            <a href="#">Nieuwe deadline</a>
+        @endif
     @endauth
 
     @auth
