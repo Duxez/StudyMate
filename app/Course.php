@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Course extends Model
 {
-    //TODO: WE HAVE TO CHECK ELOQUENT RELATIONS
+    //TODO:CHECK ELOQUENT RELATIONS
     public function teacher() {
         return DB::table('courses')
             ->leftJoin('teachers', 'courses.coordinator', '=', 'teachers.id')
