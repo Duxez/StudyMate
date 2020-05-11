@@ -11,20 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'DashboardController@index')->name('home');
+Route::get('/home', 'DashboardController@index')->name('home');
+Route::get('/', 'DashboardController@index');
 
 Route::resource('/docenten', 'TeacherController')->middleware('checkRole:admin');
+Route::resource('/vakken', 'CourseController')->middleware('checkRole:admin');
 
-//admin needs also auth middleware because if user isn't set auth()->user() is null
-Route::get('/admin', function() {
-    return view('admin');
-})->middleware('admin', 'auth');
+Route::get('/vakken/test/{course}', 'TestController@create')->middleware('checkRole:admin');
+Route::post('/vakken/test/{course}', 'TestController@store')->middleware('checkRole:admin');
+
+Route::post('/upload/assesment/{course}', 'TestController@uploadAssesment')->middleware('checkRole:admin');
+Route::post('/grade/{course}', 'testController@gradeAssesment')->middleware('checkRole:admin');
+
+Route::get('/docenten', 'TeacherController@index')->middleware('checkRole:admin');
 
 Route::get('/manager', function() {
     return view('deadline.show');

@@ -1,7 +1,7 @@
 
 <div class="sidenav">
     <h2>StudyMate</h2>
-    <a href="#about">Dashboard</a>
+    <a href="/dashboard">Dashboard</a>
     @auth
         @if(auth()->user()->hasRole('admin'))
             <a href="/cijfers">Cijfers</a>

@@ -20,15 +20,12 @@
             <label>Docent Telefoonnummer</label>
             <input type="number" class="form-control" placeholder="Telefoonnummer" name="number" required>
         </div>
-
         <div class="form-group">
             <label for="exampleFormControlSelect2">Geeft les in</label>
             <select multiple class="form-control" name="courses[]">
-                <option value="prog">prog</option>
-                <option value="datab">datab</option>
-                <option>swen</option>
-                <option>presam</option>
-                <option>modl</option>
+                @foreach($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
+                @endforeach
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Maak docent aan</button>
