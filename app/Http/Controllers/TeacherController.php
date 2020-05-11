@@ -47,19 +47,12 @@ class TeacherController extends Controller
             $teacher->email = $request->get('email');
             $teacher->phone = $request->get('number');
 
-            if ($request->get('teaches') === "on") {
-                $teacher->teaches = true;
-            } else {
-                $teacher->teaches = false;
-            }
+            $teacher->teaches = $teacher->checkTeaches($request->get('teaches'));
 
             $courses = $request->get('courses');
             if ($teacher->save()) {
-                if ($courses != null) {
-                    foreach ($courses as $course) {
-                        $teacher->courses()->attach($course);
-                    }
-                }
+                $teacher->courses()->detach($teacher->courses);
+                $teacher->attachCourses($courses);
 
                 return redirect('/docenten');
             }
@@ -102,7 +95,6 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacher $request, Teacher $teacher)
     {
-        //TODO: VALIDATION ON FORMS IN THE BACKEND
         if ($request->validated()) {
 
             $teacher->name = $request->get('name');
