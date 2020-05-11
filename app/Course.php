@@ -12,7 +12,6 @@ class Course extends Model
         return $this->hasMany('App\Test');
     }
 
-    //TODO: WE HAVE TO CHECK ELOQUENT RELATIONS
     public function teacher()
     {
         return DB::table('courses')
