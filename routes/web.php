@@ -27,3 +27,8 @@ Route::post('/upload/assesment/{course}', 'TestController@uploadAssesment')->mid
 Route::post('/grade/{course}', 'testController@gradeAssesment')->middleware('checkRole:admin');
 
 Route::get('/docenten', 'TeacherController@index')->middleware('checkRole:admin');
+
+
+Route::get('qr', function () {
+    return QrCode::size(300)->generate('google.com');
+});
