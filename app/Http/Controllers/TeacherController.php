@@ -112,6 +112,9 @@ class TeacherController extends Controller
         $teacher->save();
 
         $courses = $request->get('courses');
+
+        $teacher->courses()->detach($teacher->courses);
+
         if ($courses != null) {
             foreach ($courses as $course) {
                 if (!$teacher->courses()->where('id', $course)->exists()) {
