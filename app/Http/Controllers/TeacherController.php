@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Http\Requests\StoreTeacher;
+use App\Http\Requests\UpdateTeacher;
 use App\Teacher;
 use Illuminate\Http\Request;
 
@@ -36,33 +38,35 @@ class TeacherController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreTeacher $request)
     {
+        if ($request->validated()) {
 
-        $teacher = new teacher();
-        $teacher->name = $request->get('name');
-        $teacher->email = $request->get('email');
-        $teacher->phone = $request->get('number');
+            $teacher = new teacher();
+            $teacher->name = $request->get('name');
+            $teacher->email = $request->get('email');
+            $teacher->phone = $request->get('number');
 
-        if ($request->get('teaches') === "on") {
-            $teacher->teaches = true;
-        } else {
-            $teacher->teaches = false;
-        }
-
-        $courses = $request->get('courses');
-        if ($teacher->save()) {
-            if ($courses != null) {
-                foreach ($courses as $course) {
-                    $teacher->courses()->attach($course);
-                }
+            if ($request->get('teaches') === "on") {
+                $teacher->teaches = true;
+            } else {
+                $teacher->teaches = false;
             }
 
-            return redirect('/docenten');
-        }
+            $courses = $request->get('courses');
+            if ($teacher->save()) {
+                if ($courses != null) {
+                    foreach ($courses as $course) {
+                        $teacher->courses()->attach($course);
+                    }
+                }
 
-        $request->session()->flash('error', 'Kon docent niet aanmaken');
-        return back();
+                return redirect('/docenten');
+            }
+
+            $request->session()->flash('error', 'Kon docent niet aanmaken');
+            return back();
+        }
     }
 
     /**
@@ -73,7 +77,7 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        $data = Teacher::findOrFail($teacher);
+        $data = Teacher::find($teacher);
         return view('teacher.show', compact('data'));
     }
 
@@ -96,34 +100,24 @@ class TeacherController extends Controller
      * @param \App\teacher $teacher
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(UpdateTeacher $request, Teacher $teacher)
     {
         //TODO: VALIDATION ON FORMS IN THE BACKEND
-        $teacher->name = $request->get('name');
-        $teacher->email = $request->get('email');
-        $teacher->phone = $request->get('phone');
+        if ($request->validated()) {
 
-        if ($request->get('teaches') === "on") {
-            $teacher->teaches = true;
-        } else {
-            $teacher->teaches = false;
-        }
-
-        $teacher->save();
-
-        $courses = $request->get('courses');
-
-        $teacher->courses()->detach($teacher->courses);
-
-        if ($courses != null) {
-            foreach ($courses as $course) {
-                if (!$teacher->courses()->where('id', $course)->exists()) {
-                    $teacher->courses()->attach($course);
-                }
+            $teacher->name = $request->get('name');
+            $teacher->email = $request->get('email');
+            $teacher->phone = $request->get('number');
+            $teacher->teaches = $teacher->checkTeaches($request->get('teaches'));
+            if ($teacher->save()) {
+                $courses = $request->get('courses');
+                $teacher->courses()->detach($teacher->courses);
+                $teacher->attachCourses($courses);
+                return redirect("/docenten/" . $teacher->id);
             }
+            return back();
         }
 
-        return redirect("/docenten/" . $teacher->id);
     }
 
     /**

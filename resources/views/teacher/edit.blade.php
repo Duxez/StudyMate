@@ -6,9 +6,18 @@
 
     <h1>Docent aanpassen</h1>
 
-    <form action="/docenten/{{ $teacher->id }}" method="post">
-        @csrf
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">
+                {{ $error }}
+            </div>
+        @endforeach
+
+    @endif
+
+    <form action="/docenten/{{ $teacher->id }}" method="POST">
         @method('PUT')
+        @csrf
 
         <div class="form-group">
             <label>Docent naam</label>
@@ -24,7 +33,7 @@
 
         <div class="form-group">
             <label>Docent Telefoonnummer</label>
-            <input type="text" class="form-control" placeholder="Telefoonnummer" name="phone"
+            <input type="text" class="form-control" placeholder="Telefoonnummer" name="number"
                    value="{{ $teacher->phone }} " required>
         </div>
 
