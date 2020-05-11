@@ -9,7 +9,6 @@
             <a href="/docenten">Docenten</a>
         @elseif(auth()->user()->hasRole('deadline manager'))
             <a href="/deadline">Deadlines</a>
-            <a href="#">Nieuwe deadline</a>
         @endif
     @endauth
 

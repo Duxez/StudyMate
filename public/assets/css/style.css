@@ -31,3 +31,17 @@
 .container {
     margin-top: 3.5rem;
 }
+
+.bootstrap-tagsinput .tag {
+    background-color: blue;
+    padding: 3px;
+    border-radius: 3px;
+    width: 100% !important;
+}
+
+.tagged {
+    background-color: blue;
+    padding: 3px;
+    border-radius: 3px;
+    color: white;
+}
