@@ -33,19 +33,26 @@ class TeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
+
         $teacher = new teacher();
         $teacher->name = $request->get('name');
         $teacher->email = $request->get('email');
         $teacher->phone = $request->get('number');
 
+        if ($request->get('teaches') === "on") {
+            $teacher->teaches = true;
+        } else {
+            $teacher->teaches = false;
+        }
+
         $courses = $request->get('courses');
         if ($teacher->save()) {
-            if ($courses >= 1) {
+            if ($courses != null) {
                 foreach ($courses as $course) {
                     $teacher->courses()->attach($course);
                 }
@@ -54,7 +61,6 @@ class TeacherController extends Controller
             return redirect('/docenten');
         }
 
-        //TODO: CREATE ERROR LABEN IN VIEW
         $request->session()->flash('error', 'Kon docent niet aanmaken');
         return back();
     }
@@ -62,7 +68,7 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Teacher  $teacher
+     * @param \App\Teacher $teacher
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Teacher $teacher)
@@ -74,7 +80,7 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\teacher  $teacher
+     * @param \App\teacher $teacher
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Teacher $teacher)
@@ -86,8 +92,8 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\teacher  $teacher
+     * @param \Illuminate\Http\Request $request
+     * @param \App\teacher $teacher
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Teacher $teacher)
@@ -96,15 +102,28 @@ class TeacherController extends Controller
         $teacher->name = $request->get('name');
         $teacher->email = $request->get('email');
         $teacher->phone = $request->get('phone');
+
+        if ($request->get('teaches') === "on") {
+            $teacher->teaches = true;
+        } else {
+            $teacher->teaches = false;
+        }
+
         $teacher->save();
 
         $courses = $request->get('courses');
-        foreach($courses as $course) {
-            //TODO: CHECK IF IT IS ALREADY IN PIVOT TABLE
-            $teacher->courses()->attach($course);
+
+        $teacher->courses()->detach($teacher->courses);
+
+        if ($courses != null) {
+            foreach ($courses as $course) {
+                if (!$teacher->courses()->where('id', $course)->exists()) {
+                    $teacher->courses()->attach($course);
+                }
+            }
         }
 
-        return redirect("/docenten/".$teacher->id);
+        return redirect("/docenten/" . $teacher->id);
     }
 
     /**
@@ -116,7 +135,7 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-       $teacher->delete();
-       return back();
+        $teacher->delete();
+        return back();
     }
 }
