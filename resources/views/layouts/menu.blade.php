@@ -4,7 +4,6 @@
     <a href="/dashboard">Dashboard</a>
     @auth
         @if(auth()->user()->hasRole('admin'))
-            <a href="/cijfers">Cijfers</a>
             <a href="/vakken">Vakken</a>
             <a href="/docenten">Docenten</a>
         @elseif(auth()->user()->hasRole('deadline manager'))
