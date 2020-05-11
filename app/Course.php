@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 
 class Course extends Model
 {
+    public function tests()
+    {
+        return $this->hasMany('App\Test');
+    }
+
     //TODO:CHECK ELOQUENT RELATIONS
     public function teacher() {
         return DB::table('courses')
@@ -15,7 +20,8 @@ class Course extends Model
             ->get();
     }
 
-    public static function getCoursesWithTeacher() {
+    public static function getCoursesWithTeacher()
+    {
         return DB::table('courses')
             ->leftJoin('teachers', 'courses.coordinator', '=', 'teachers.id')
             ->select('teachers.name as teacher_name', 'courses.*')
