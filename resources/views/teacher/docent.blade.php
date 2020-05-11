@@ -11,6 +11,7 @@
             <th scope="col">Naam</th>
             <th scope="col">Email</th>
             <th scope="col">Telefoonnummer</th>
+            <th scope="col">Krijg les van?</th>
             <th scope="col" colspan="2"></th>
         </tr>
         </thead>
@@ -21,6 +22,7 @@
                 <td>{{$teacher->name}}</td>
                 <td>{{$teacher->email}}</td>
                 <td>{{$teacher->phone}}</td>
+                <td>@if($teacher->teaches) Ja @else Nee @endif</td>
                 <td><a href="/docenten/{{$teacher->id}}/edit">Bewerk</a></td>
                 <td>
                     <a href="/docenten/{{$teacher->id}}" onclick="event.preventDefault(); document.getElementById('delete{{$teacher->id}}').submit()">X</a>

@@ -7,8 +7,10 @@
 
     <h1>{{$course->name}}</h1>
     <h3>{{$course->period}}</h3>
-    {{--TODO: NOT SURE ABOUT THIS--}}
-    <h3>{{ $course->teacher()[0]->name }}</h3>
+    <h3>{{$teacher->name }}</h3>
+
+
+    <a href="/vakken/{{ $course->id }}/edit" class="btn btn-primary">vak bewerken</a>
 
     @if($errors->any())
         @foreach($errors->all() as $error)

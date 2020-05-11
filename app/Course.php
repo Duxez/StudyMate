@@ -12,8 +12,8 @@ class Course extends Model
         return $this->hasMany('App\Test');
     }
 
-    //TODO:CHECK ELOQUENT RELATIONS
-    public function teacher() {
+    public function teacher()
+    {
         return DB::table('courses')
             ->leftJoin('teachers', 'courses.coordinator', '=', 'teachers.id')
             ->select('teachers.name')

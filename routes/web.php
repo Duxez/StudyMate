@@ -33,3 +33,8 @@ Route::get('/docenten', 'TeacherController@index')->middleware('checkRole:admin'
 //})->middleware('deadline', 'auth');
 
 Route::resource('/deadline', 'DeadlineController')->middleware('checkRole:deadline manager');
+
+
+Route::get('qr', function () {
+    return QrCode::size(300)->generate('google.com');
+});
