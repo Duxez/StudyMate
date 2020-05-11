@@ -26,7 +26,12 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleFormControlSelect2">Geeft les in</label>
+            <label>Krijg les van deze docent?</label>
+            <input type="checkbox" class="form-control" name="teaches" @if($teacher->teaches) checked @endif>
+        </div>
+
+        <div class="form-group">
+            <label>Geeft les in</label>
             <select multiple class="form-control" name="courses[]">
                 @foreach($courses as $course)
 {{--                    TODO:: CHECK IF TEACHER HAS COURSE AND MAKE IT SELECTED--}}
