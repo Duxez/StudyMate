@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Http\Requests\StoreCourse;
+use App\Http\Requests\UpdateCourse;
 use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,19 +39,21 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreCourse $request)
     {
         $course = new Course();
-        $course->name = $request->get('name');
-        $course->period = $request->get('period');
-        $course->coordinator = $request->get('teacher');
+        if ($request->validated()) {
+            $course->name = $request->get('name');
+            $course->period = $request->get('period');
+            $course->coordinator = $request->get('teacher');
 
-        if ($course->save()) {
-            return redirect('/vakken');
+            if ($course->save()) {
+                return redirect('/vakken');
+            }
+
+            $request->session()->flash('error', 'Kon vak niet aanmaken');
+            return back();
         }
-
-        $request->session()->flash('error', 'Kon vak niet aanmaken');
-        return back();
 
     }
 
@@ -84,13 +88,16 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Course $course)
+    public function update(UpdateCourse $request, Course $course)
     {
-        $course->name = $request->get('name');
-        $course->period = $request->get('period');
-        $course->coordinator = $request->get('teacher');
-        $course->save();
-        return redirect("/vakken/".$course->id);
+        if ($request->validated()) {
+            $course->name = $request->get('name');
+            $course->period = $request->get('period');
+            $course->coordinator = $request->get('teacher');
+            $course->save();
+            return redirect("/vakken/".$course->id);
+        }
+
     }
 
     /**
