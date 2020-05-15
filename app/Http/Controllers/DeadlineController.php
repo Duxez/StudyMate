@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Deadline;
+use App\Http\Requests\StoreDeadline;
+use App\Http\Requests\UpdateDeadline;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -39,21 +41,24 @@ class DeadlineController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(StoreDeadline $request)
     {
-        $d = new DateTime($request->date_submit . "T" . $request->time . ":00.00");
-        $deadline = new Deadline();
-        $deadline->datetime = $d;
-        $deadline->course_id = $request->course;
-        $deadline->tags = $request->tags;
-        $deadline->type = $request->type;
+        if ($request->validated()) {
+            $d = new DateTime($request->date_submit . "T" . $request->time . ":00.00");
+            $deadline = new Deadline();
+            $deadline->datetime = $d;
+            $deadline->course_id = $request->course;
+            $deadline->tags = $request->tags;
+            $deadline->type = $request->type;
 
-        if($deadline->save()) {
-            return redirect('/deadline');
+            if($deadline->save()) {
+                return redirect('/deadline');
+            }
+
+            $request->session()->flash('error', 'Kon deadline niet aanmaken');
+            return back();
         }
 
-        $request->session()->flash('error', 'Kon deadline niet aanmaken');
-        return back();
     }
 
     /**
@@ -87,15 +92,18 @@ class DeadlineController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function update(Request $request, Deadline $deadline)
+    public function update(UpdateDeadline $request, Deadline $deadline)
     {
-        $d = new DateTime($request->date_submit . "T" . $request->time . ":00.00");
-        $deadline->datetime = $d;
-        $deadline->course_id = $request->course;
-        $deadline->tags = $request->tags;
-        $deadline->type = $request->type;
-        $deadline->save();
-        return redirect("/deadline/". $deadline->id);
+        if ($request->validated()) {
+            $d = new DateTime($request->date_submit . "T" . $request->time . ":00.00");
+            $deadline->datetime = $d;
+            $deadline->course_id = $request->course;
+            $deadline->tags = $request->tags;
+            $deadline->type = $request->type;
+            $deadline->save();
+            return redirect("/deadline/". $deadline->id);
+        }
+
     }
 
     /**
