@@ -17,7 +17,9 @@
                 <tr scope="row">
                     <td scope="col"><a href="/deadline/{{$deadline->id}}">{{$deadline->id}}</a></td>
                     @foreach($courses as $course)
-                        <td scope="col">{{$course->name}}</td>
+                        @if($course->id == $deadline->course_id)
+                            <td scope="col">{{$course->name}}</td>
+                        @endif
                     @endforeach
                     <td scope="col">{{$deadline->datetime}}</td>
                     @if($deadline->type == 0)

@@ -17,7 +17,7 @@ class CreateDeadlineTable extends Migration
             $table->bigIncrements('id');
             $table->dateTime('datetime');
             $table->unsignedBigInteger('course_id');
-            $table->string('tags');
+            $table->string('tags')->nullable();
             $table->tinyInteger('type');
             $table->timestamps();
 
