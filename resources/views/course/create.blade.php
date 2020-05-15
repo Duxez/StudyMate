@@ -4,7 +4,14 @@
 
 @section('content')
 
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">
+                {{ $error }}
+            </div>
+        @endforeach
 
+    @endif
     <h1>Vak aanmaken</h1>
 
     <form action="/vakken" method="post">
