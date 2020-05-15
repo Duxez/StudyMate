@@ -27,6 +27,12 @@ Route::post('/upload/assesment/{course}', 'TestController@uploadAssesment')->mid
 Route::post('/grade/{course}', 'testController@gradeAssesment')->middleware('checkRole:admin');
 
 Route::get('/docenten', 'TeacherController@index')->middleware('checkRole:admin');
+//
+//Route::get('/manager', function() {
+//    return view('deadline.show');
+//})->middleware('deadline', 'auth');
+
+Route::resource('/deadline', 'DeadlineController')->middleware('checkRole:deadline manager');
 
 
 Route::get('qr', function () {

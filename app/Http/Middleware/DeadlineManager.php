@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Admin
+class DeadlineManager
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->admin == 1) {
+        if(auth()->user()->hasRole("deadline manager")) {
             return $next($request);
         }
-        return redirect("home")->with('error', "You dont have access");
+
+        return redirect("home")->with("error", "You don't have access");
     }
 }

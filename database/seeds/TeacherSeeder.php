@@ -15,6 +15,7 @@ class TeacherSeeder extends Seeder
             'name' => 'marco',
             'email' => 'marco',
             'phone' => 123456,
+            'teaches' => 0,
         ]);
     }
 }

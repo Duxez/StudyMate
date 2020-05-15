@@ -7,7 +7,7 @@
             <a href="/vakken">Vakken</a>
             <a href="/docenten">Docenten</a>
         @elseif(auth()->user()->hasRole('deadline manager'))
-            <a href="#">Nieuwe deadline</a>
+            <a href="/deadline">Deadlines</a>
         @endif
     @endauth
 
