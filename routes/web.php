@@ -38,3 +38,5 @@ Route::resource('/deadline', 'DeadlineController')->middleware('checkRole:deadli
 Route::get('qr', function () {
     return QrCode::size(300)->generate('google.com');
 });
+
+Route::get('/deadlinesorted', 'DeadlineController@indexSorted')->middleware('checkRole:deadline manager');

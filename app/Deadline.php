@@ -11,4 +11,11 @@ class Deadline extends Model
         return DB::table('courses')
             ->where('id', '=', $courseId)->get();
     }
+
+    public static function withCourses($orderBy = 'deadlines.id', $direction = 'asc') {
+        return DB::table('deadlines')
+            ->join('courses', 'deadlines.course_id', '=', 'courses.id')
+            ->join('teachers', 'courses.coordinator', '=', 'teachers.id')
+            ->select('deadlines.*', 'courses.id AS courseId', 'courses.name', 'teachers.name AS teacherName')->orderBy($orderBy, $direction)->paginate(10);
+    }
 }
