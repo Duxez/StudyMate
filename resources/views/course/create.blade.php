@@ -26,6 +26,11 @@
         </div>
 
         <div class="form-group">
+            <label>Aantal ECTS</label>
+            <input type="number" max="12" class="form-control" placeholder="Studiepunten (ECTS)" name="ECTS" required>
+        </div>
+
+        <div class="form-group">
             <label>Vak Coördinator</label>
             <select class="form-control" name="teacher" required>
                 @foreach($teachers as $teacher)

@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('period');
+            $table->integer('ECTS');
             $table->unsignedBigInteger('coordinator');
             $table->timestamps();
 

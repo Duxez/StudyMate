@@ -26,6 +26,7 @@ class StoreCourse extends FormRequest
         return [
             'name' => 'required',
             'period' => 'required',
+            'ECTS' => 'required',
             'teacher' => 'required'
         ];
     }
