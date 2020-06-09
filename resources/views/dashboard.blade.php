@@ -41,6 +41,7 @@
                 $period = ceil($course->period / 2);
                 $blok = $course->period;
                 $secondTable = false;
+                $rows = 0;
             @endphp
             <h5>periode {{ $period }}</h5>
             <h5>blok {{ $course->period }}</h5>
@@ -72,7 +73,14 @@
                         @endforeach
                     </td>
                 </tr>
+                @php
+                    $rows++;
+                @endphp
                 @else
+                    @if($rows == 1)
+                        </tbody>
+                        </table>
+                    @endif
                     @if($blok == $course->period)
                         <tr>
                             <td>{{ $course->name }}</td>
