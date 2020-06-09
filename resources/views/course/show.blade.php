@@ -62,7 +62,7 @@
                     <form action="/grade/{{ $course->id }}" method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{$test->id}}">
-                        <input type="number" name="grade" min="1" max="10" value="{{ $test->grade }}">
+                        <input type="number" name="grade" min="1" max="10" value="{{ $test->grade }}" step="0.1">
                         <button type="submit">update</button>
                     </form>
                 </td>

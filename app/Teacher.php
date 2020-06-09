@@ -2,10 +2,19 @@
 
 namespace App;
 
+use App\Traits\EncrypTable;
 use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
+
+    use EncrypTable;
+
+    protected $encryptable = [
+        'name',
+        'email',
+        'phone'
+    ];
 
     public function courses() {
         return $this->belongsToMany('App\Course');

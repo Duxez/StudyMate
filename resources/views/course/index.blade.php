@@ -22,7 +22,7 @@
                 <td>{{$course->name}}</td>
                 <td>{{$course->period}}</td>
                 <td>{{$course->ECTS}}</td>
-                <td>{{$course->teacher_name}}</td>
+                <td>{{$course->teachers->name}}</td>
                 <td><a href="/vakken/{{$course->id}}/edit">Bewerk</a></td>
                 <td>
                     <a href="/vakken/{{$course->id}}" onclick="event.preventDefault(); document.getElementById('delete{{$course->id}}').submit()">X</a>
