@@ -12,8 +12,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $periods = [];
-        $courses = Course::all();
+        $courses = Course::all()->sortBy('period');
         return view('dashboard', compact('courses'));
     }
 
