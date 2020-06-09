@@ -14,34 +14,29 @@
         <tr>
             <th scope="col">Vak</th>
             <th scope="col">Docent</th>
-            <th scope="col">Cijfer</th>
+            <th scope="col" width="10%">Studiepunten</th>
+            <th scope="col">Blok</th>
+            <th scope="col">Cijfer('s), Assesment</th>
         </tr>
         </thead>
         <tbody>
-    @foreach($courses as $course)
-        <tr>
-            <td>{{ $course->name }}</td>
-            <td>{{ $course->teacher()[0]->name }}</td>
-            <td>{{ $course->tests[0]->grade }}</td>
-        </tr>
+        @foreach($courses as $course)
+            <tr>
+                <td>{{ $course->name }}</td>
+                <td>{{ $course->teacher()[0]->name }}</td>
+                <td>{{ $course->ECTS }}</td>
+                <td>{{ $course->period }}</td>
+                <td>
+                    @foreach($course->tests as $test)
+                        {{ $test->grade }}, @if($test->assesment) Ja @else Nee @endif <br>
+                    @endforeach
+                </td>
+            </tr>
 
-    @endforeach
+        @endforeach
         </tbody>
     </table>
 
 
-
-    <div class="progress">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-    <div class="progress">
-        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-    <div class="progress">
-        <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-    <div class="progress">
-        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
 
 @endsection
