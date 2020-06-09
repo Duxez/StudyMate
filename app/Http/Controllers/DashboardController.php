@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Course;
+use App\Services\QrCode;
 use App\Test;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,10 @@ class DashboardController extends Controller
 
 
         return view('dashboard', compact('courses', 'points', 'studyPoints', 'percent'));
+    }
+
+    public function qrCode() {
+        $qr = new QrCode();
     }
 
 }
