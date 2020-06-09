@@ -77,10 +77,6 @@
                     $rows++;
                 @endphp
                 @else
-                    @if($rows == 1)
-                        </tbody>
-                        </table>
-                    @endif
                     @if($blok == $course->period)
                         <tr>
                             <td>{{ $course->name }}</td>
@@ -98,7 +94,14 @@
                                 @endforeach
                             </td>
                         </tr>
+                        @php
+                            $rows++;
+                        @endphp
                     @else
+                        @if($rows == 1)
+                            </tbody>
+                            </table>
+                        @endif
                         @if($secondTable)
                             <tr>
                                 <td>{{ $course->name }}</td>
