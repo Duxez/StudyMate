@@ -11,10 +11,18 @@
         $period = 0;
         $blok = 0;
         $secondTable = false;
+        $rows = 0;
     @endphp
-    @foreach($courses as $course)
+    @for($i = 0; $i < count($courses); $i++)
 
+        @php
+            $course = $courses[$i];
+        @endphp
         @if($period != ceil($course->period / 2))
+            @if($rows == 1)
+                </tbody>
+                </table>
+            @endif
             @php
                 $period = ceil($course->period / 2);
                 $blok = $course->period;
@@ -25,13 +33,13 @@
             <h2>blok {{ $course->period }}</h2>
 
             <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ $percent[$course->period - 1]  }}%" aria-valuenow="{{ $percent[$course->period - 1]  }}" aria-valuemin="0"
-                     aria-valuemax="100">{{ $percent[$course->period - 1] }}%
+                <div class="progress-bar" role="progressbar" style="width: {{ $percent[$i]  }}%" aria-valuenow="{{ $percent[$i]  }}" aria-valuemin="0"
+                     aria-valuemax="100">{{ $percent[$i] }}%
                 </div>
             </div>
 
-            <p>Aantal te behalen punten: {{ $points[$course->period - 1]->points }}</p>
-            <p>Behaalde studiepunten: {{ $studyPoints[$course->period - 1] }}</p>
+            <p>Aantal te behalen punten: {{ $points[$i]->points }}</p>
+            <p>Behaalde studiepunten: {{ $studyPoints[$i] }}</p>
 
             <table class="table">
                 <thead>
@@ -87,9 +95,9 @@
                         @endphp
                     @else
                         @if($rows == 1)
-                </tbody>
-            </table>
-        @endif
+                            </tbody>
+                            </table>
+                        @endif
         @if($secondTable)
             <tr>
                 <td>{{ $course->name }}</td>
@@ -114,13 +122,13 @@
             <h2>blok {{ $course->period }}</h2>
 
             <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ $percent[$course->period - 1]  }}%" aria-valuenow="{{ $percent[$course->period - 1]  }}" aria-valuemin="0"
-                     aria-valuemax="100">{{ $percent[$course->period - 1] }}%
+                <div class="progress-bar" role="progressbar" style="width: {{ $percent[$i]  }}%" aria-valuenow="{{ $percent[$i]  }}" aria-valuemin="0"
+                     aria-valuemax="100">{{ $percent[$i] }}%
                 </div>
             </div>
 
-            <p>Aantal te behalen punten: {{ $points[$course->period - 1]->points }}</p>
-            <p>Behaalde studiepunten: {{ $studyPoints[$course->period - 1] }}</p>
+            <p>Aantal te behalen punten: {{ $points[$i]->points }}</p>
+            <p>Behaalde studiepunten: {{ $studyPoints[$i] }}</p>
 
 
             <table class="table">
@@ -159,7 +167,7 @@
             </table>
         @endif
 
-    @endforeach
+    @endfor
 
 
 

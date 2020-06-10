@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $courses = Course::all()->sortBy('period');
+        $courses = Course::all()->sortBy('period')->values();
 
         $studyPoints = [];
         $percent = [];
@@ -40,10 +40,10 @@ class DashboardController extends Controller
 
         $lastPeriod = 0;
 
-        foreach ($courses as $course) {
-
+        for ($i = 0; $i < count($courses); $i++) {
+            $course = $courses[$i];
             if ($course->period > $lastPeriod) {
-                $calculated = $studyPoints[$course->period - 1] / $points[$course->period - 1]->points * 100;
+                $calculated = $studyPoints[$i] / $points[$i]->points * 100;
                 array_push($percent, $calculated);
             }
             $lastPeriod = $course->period;
