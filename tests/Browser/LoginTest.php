@@ -31,7 +31,7 @@ class LoginTest extends DuskTestCase
     /**
      * A basic browser test example.
      *
-     * @test login Success
+     * @test login failed
      * @return void
      * @throws \Throwable
      */
