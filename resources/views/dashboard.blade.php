@@ -33,13 +33,13 @@
             <h2>blok {{ $course->period }}</h2>
 
             <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ $percent[$i]  }}%" aria-valuenow="{{ $percent[$i]  }}" aria-valuemin="0"
-                     aria-valuemax="100">{{ $percent[$i] }}%
+                <div class="progress-bar" role="progressbar" style="width: {{ $percent['blok' . $course->period]  }}%" aria-valuenow="{{ $percent['blok' . $course->period]  }}" aria-valuemin="0"
+                     aria-valuemax="100">{{ $percent['blok' . $course->period] }}%
                 </div>
             </div>
 
-            <p>Aantal te behalen punten: {{ $points[$i]->points }}</p>
-            <p>Behaalde studiepunten: {{ $studyPoints[$i] }}</p>
+            <p>Aantal te behalen punten: {{ $points['blok' . $course->period]}}</p>
+            <p>Behaalde studiepunten: {{ $studyPoints['blok' . $course->period] }}</p>
 
             <table class="table">
                 <thead>
@@ -122,13 +122,13 @@
             <h2>blok {{ $course->period }}</h2>
 
             <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ $percent[$i]  }}%" aria-valuenow="{{ $percent[$i]  }}" aria-valuemin="0"
-                     aria-valuemax="100">{{ $percent[$i] }}%
+                <div class="progress-bar" role="progressbar" style="width: {{ $percent['blok' . $course->period]  }}%" aria-valuenow="{{ $percent['blok' . $course->period]  }}" aria-valuemin="0"
+                     aria-valuemax="100">{{ $percent['blok' . $course->period] }}%
                 </div>
             </div>
 
-            <p>Aantal te behalen punten: {{ $points[$i]->points }}</p>
-            <p>Behaalde studiepunten: {{ $studyPoints[$i] }}</p>
+            <p>Aantal te behalen punten: {{ $points['blok' . $course->period] }}</p>
+            <p>Behaalde studiepunten: {{ $studyPoints['blok' . $course->period] }}</p>
 
 
             <table class="table">
