@@ -18,7 +18,7 @@ class DeadlineController extends Controller
      */
     public function index()
     {
-        $deadlines = Deadline::withCourses();
+        $deadlines = Deadline::paginate(10);
         return view("deadline.index")->with(compact('deadlines'));
     }
 
@@ -31,7 +31,17 @@ class DeadlineController extends Controller
     public function indexSorted(Request $request)
     {
         $sortOn = $request->query('sortOn');
-        $deadlines = Deadline::withCourses($request->query('sortOn'), $request->query('direction'));
+        $deadlines = Deadline::where('finished', '=', 0)->paginate(10);
+
+        if($request->query('direction') == 'asc') {
+            $deadlines->sortBy(function ($deadline) {
+                return $deadline->course->teachers->name;
+            });
+        } else {
+            $deadlines->sortByDesc(function ($deadline) {
+                return $deadline->course->teachers->name;
+            });
+        }
 
         return view("deadline.index")->with(compact('deadlines'));
     }

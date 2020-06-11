@@ -10,7 +10,7 @@
 
 @section("content")
     <select class="form-control" id="sortOn">
-        <option value="teachers.name">Docent</option>
+        <option value="course.teachers.name">Docent</option>
         <option value="courses.name">Vak</option>
         <option value="deadlines.datetime">Deadline Tijd</option>
         <option value="deadlines.type">Type</option>
@@ -43,7 +43,7 @@
                     @else
                         <td>Opdrachten</td>
                     @endif
-                    <td scope="col">{{$deadline->teacherName}}</td>
+                    <td scope="col">{{$deadline->course->teachers->name}}</td>
                     <td scope="col">
                         @foreach(explode(",", $deadline->tags) as $tag)
                             <span class="tagged">{{$tag}}</span>
