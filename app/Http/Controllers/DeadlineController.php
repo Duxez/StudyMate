@@ -18,8 +18,10 @@ class DeadlineController extends Controller
      */
     public function index()
     {
-        $deadlines = Deadline::paginate(10);
-        return view("deadline.index")->with(compact('deadlines'));
+        $deadlines = Deadline::withCourses();
+
+        $done = Deadline::withCourses(true);
+        return view("deadline.index")->with(compact('deadlines', 'done'));
     }
 
     /**
@@ -31,19 +33,11 @@ class DeadlineController extends Controller
     public function indexSorted(Request $request)
     {
         $sortOn = $request->query('sortOn');
-        $deadlines = Deadline::where('finished', '=', 0)->paginate(10);
+        $deadlines = Deadline::withCourses(false, $sortOn, $request->query('direction'));
 
-        if($request->query('direction') == 'asc') {
-            $deadlines->sortBy(function ($deadline) {
-                return $deadline->course->teachers->name;
-            });
-        } else {
-            $deadlines->sortByDesc(function ($deadline) {
-                return $deadline->course->teachers->name;
-            });
-        }
+        $done = Deadline::withCourses(true, $sortOn, $request->query('direction'));
 
-        return view("deadline.index")->with(compact('deadlines'));
+        return view("deadline.index")->with(compact('deadlines', 'done'));
     }
 
     /**
@@ -140,5 +134,11 @@ class DeadlineController extends Controller
     {
         $deadline->delete();
         return back();
+    }
+
+    public function setDeadlineFinished(Deadline $deadline) {
+        $deadline->finished = true;
+        $deadline->save();
+        return redirect()->back();
     }
 }

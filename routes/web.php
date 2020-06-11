@@ -40,3 +40,4 @@ Route::get('qr', function () {
 });
 
 Route::get('/deadlinesorted', 'DeadlineController@indexSorted')->middleware('checkRole:deadline manager');
+Route::get('/deadlinefinished/{deadline}', 'DeadlineController@setDeadlineFinished')->middleware('checkRole:deadline manager');

@@ -19,38 +19,35 @@ class DashboardController extends Controller
         $studyPoints = [];
         $percent = [];
         $points = DB::select(DB::raw('SELECT period, SUM(ECTS) as points FROM courses GROUP BY period'));
-
+        $studyPointsRows = DB::select(DB::raw('SELECT c.period, c.ECTS as points FROM courses c INNER JOIN tests t ON c.id = t.course_id WHERE t.grade > 5.4 GROUP BY period, points'));
+        $periodsDone = [];
         foreach ($courses as $course) {
             if ($course->period > count($studyPoints)) {
-                array_push($studyPoints, 0);
+                $studyPoints['blok' . $course->period] = 0;
             }
+            if(!in_array($course->period, $periodsDone)) {
+                foreach ($studyPointsRows as $row) {
+                    if ($row->period == $course->period) {
 
-            $passedTests = true;
-            for ($i = 0; $i < count($course->tests); $i++) {
-                $test = $course->tests[$i];
-                if ($test->grade == null || $test->grade < 5.5) {
-                    $passedTests = false;
-                }
-                if ($passedTests && $i == count($course->tests) - 1) {
-                    $studyPoints[count($studyPoints) - 1] += $course->ECTS;
+                        $studyPoints['blok' . $course->period] += $row->points;
+                        array_push($periodsDone, $course->period);
+                    }
                 }
             }
         }
-
-
+//        dd($studyPoints);
         $lastPeriod = 0;
-
+        $periodsCalculated = [];
         for ($i = 0; $i < count($courses); $i++) {
             $course = $courses[$i];
             if ($course->period > $lastPeriod) {
-                $calculated = $studyPoints[$i] / $points[$i]->points * 100;
-                array_push($percent, $calculated);
+                array_push($periodsCalculated, $course->period);
+                $calculated = $studyPoints['blok' . $course->period] / $points[count($periodsCalculated) - 1]->points * 100;
+                $points['blok' . $course->period] = $points[count($periodsCalculated) - 1]->points;
+                $percent['blok' . $course->period] = $calculated;
+                $lastPeriod = $course->period;
             }
-            $lastPeriod = $course->period;
         }
-
-
         return view('dashboard', compact('courses', 'points', 'studyPoints', 'percent'));
     }
-
 }
