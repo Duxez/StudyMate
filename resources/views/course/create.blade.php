@@ -39,7 +39,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Maak docent aan</button>
+        <button type="submit" class="btn btn-primary">Maak vak aan</button>
     </form>
 
 
