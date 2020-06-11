@@ -18,9 +18,22 @@ class DeadlineController extends Controller
      */
     public function index()
     {
-        $deadlines = Deadline::all();
-        $courses = Course::all();
-        return view("deadline.index")->with(compact('deadlines'))->with(compact('courses'));
+        $deadlines = Deadline::withCourses();
+        return view("deadline.index")->with(compact('deadlines'));
+    }
+
+    /**
+     * Display a sorted listing of the resource based on the passed sorting
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function indexSorted(Request $request)
+    {
+        $sortOn = $request->query('sortOn');
+        $deadlines = Deadline::withCourses($request->query('sortOn'), $request->query('direction'));
+
+        return view("deadline.index")->with(compact('deadlines'));
     }
 
     /**
