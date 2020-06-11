@@ -8,7 +8,7 @@
     @csrf
     <div class="form-group">
         <label for="date">Datum</label>
-        <input type="date" name="date" required>
+        <input type="date" id="date" name="date" required>
     </div>
 
     <div class="form-group">
