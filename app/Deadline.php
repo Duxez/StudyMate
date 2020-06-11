@@ -12,7 +12,7 @@ class Deadline extends Model
             ->where('id', '=', $courseId)->get();
     }
 
-    public static function withCourses($orderBy = 'deadlines.id', $direction = 'asc') {
+    public static function withCourses($done = false, $orderBy = 'deadlines.id', $direction = 'asc') {
         return DB::table('deadlines')
             ->join('courses', 'deadlines.course_id', '=', 'courses.id')
             ->join('teachers', 'courses.coordinator', '=', 'teachers.id')
