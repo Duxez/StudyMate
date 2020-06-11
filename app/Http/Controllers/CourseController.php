@@ -18,7 +18,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::getCoursesWithTeacher();
+        $courses = Course::all();
         return view('course.index', compact('courses'));
     }
 
@@ -46,6 +46,7 @@ class CourseController extends Controller
             $course->name = $request->get('name');
             $course->period = $request->get('period');
             $course->coordinator = $request->get('teacher');
+            $course->ECTS = $request->get('ECTS');
 
             if ($course->save()) {
                 return redirect('/vakken');
@@ -94,8 +95,9 @@ class CourseController extends Controller
             $course->name = $request->get('name');
             $course->period = $request->get('period');
             $course->coordinator = $request->get('teacher');
+            $course->ECTS = $request->get('ECTS');
             $course->save();
-            return redirect("/vakken/".$course->id);
+            return redirect("/vakken");
         }
 
     }

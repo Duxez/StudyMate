@@ -30,7 +30,7 @@ class DeadlineController extends Controller
      */
     public function create()
     {
-        $courses = Course::getCoursesWithTeacher();
+        $courses = Course::all();
         return view('deadline.create', compact('courses'));
     }
 
