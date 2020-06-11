@@ -25,7 +25,7 @@ class QrCode
         curl_setopt($call, CURLOPT_HEADER, false);
         $img = curl_exec($call);
         curl_close($call);
-
+        
         if($img) {
             if($filename) {
                 if(!preg_match("#\.png$#i", $filename)) {
@@ -35,6 +35,7 @@ class QrCode
                 return file_put_contents($filename, $img);
             } else {
                 header("Content-type: image/png");
+//                dd($img);
                 print $img;
                 return true;
             }
