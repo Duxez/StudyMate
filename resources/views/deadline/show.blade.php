@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section("content")
-    <p>Voor het vak: {{\App\Deadline::course($deadline->course_id)[0]->name}}</p>
+    <p>Voor het vak: {{$deadline->course->name}}</p>
     @if($deadline->type == 0)
         <p>Tentamen op {{$deadline->datetime}}</p>
     @else

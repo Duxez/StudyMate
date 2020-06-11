@@ -2,29 +2,27 @@
 
 namespace App;
 
+use App\Traits\EncrypTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Course extends Model
 {
+
+    use EncrypTable;
+
+    protected $encryptable = [
+        'name',
+    ];
+
     public function tests()
     {
         return $this->hasMany('App\Test');
     }
 
-    public function teacher()
+    public function teachers()
     {
-        return DB::table('courses')
-            ->leftJoin('teachers', 'courses.coordinator', '=', 'teachers.id')
-            ->select('teachers.name')
-            ->get();
+        return $this->belongsTo('App\Teacher', 'coordinator');
     }
 
-    public static function getCoursesWithTeacher()
-    {
-        return DB::table('courses')
-            ->leftJoin('teachers', 'courses.coordinator', '=', 'teachers.id')
-            ->select('teachers.name as teacher_name', 'courses.*')
-            ->get();
-    }
 }

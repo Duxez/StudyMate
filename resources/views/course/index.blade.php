@@ -9,8 +9,9 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Naam</th>
-            <th scope="col">periode</th>
-            <th scope="col">coördinator</th>
+            <th scope="col">Periode</th>
+            <th scope="col">Studiepunten (ECTS)</th>
+            <th scope="col">Coördinator</th>
             <th scope="col" colspan="2"></th>
         </tr>
         </thead>
@@ -20,7 +21,8 @@
                 <th scope="row"><a href="/vakken/{{$course->id}}">-</a></th>
                 <td>{{$course->name}}</td>
                 <td>{{$course->period}}</td>
-                <td>{{$course->teacher_name}}</td>
+                <td>{{$course->ECTS}}</td>
+                <td>{{$course->teachers->name}}</td>
                 <td><a href="/vakken/{{$course->id}}/edit">Bewerk</a></td>
                 <td>
                     <a href="/vakken/{{$course->id}}" onclick="event.preventDefault(); document.getElementById('delete{{$course->id}}').submit()">X</a>
